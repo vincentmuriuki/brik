@@ -1,17 +1,17 @@
 import hashlib
 import json
 from time import time
+from uuid import uuid4
 
 class Blockchain(object):
     def __init__(self):
         self.chain = []
         self.current_transactions = []
-        # self.new_block(previous_hash=1, proof=100)
 
         # Create the genesis block
-        self.new_block(previous_hash-1, proof=100)
+        self.new_block(previous_hash=1, proof=100)
     
-    def new_block(self):
+    def new_block(self, proof, previous_hash=None):
         """
         Creates a new block and adds it to the chain
         :param proof: <int> The proof given by the proof of work algorithm
@@ -72,6 +72,7 @@ class Blockchain(object):
         """
         guess = f'{last_proof}{proof}'.encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
+        # We can modify the difficulty of the algorithm by modifying the number of leading zeros
         return guess_hash[:4] == "0000"
         
 
